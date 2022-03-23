@@ -3,6 +3,7 @@ package com.ufcg.psoft.mercadofacil.services;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.ufcg.psoft.mercadofacil.exceptions.ProductNotFoundException;
 import com.ufcg.psoft.mercadofacil.model.Lote;
 import com.ufcg.psoft.mercadofacil.model.Produto;
 
@@ -15,11 +16,15 @@ public class LoteService {
 		this.produtoService = produtoService;
 	}
 	
-	public Lote createLote(String idProduto, int quantidade) {
+	public Lote createLote(String idProduto, int quantidade) throws ProductNotFoundException {
 		Produto produto = this.produtoService.getProdutoById(idProduto);
 		Lote lote = new Lote(produto, quantidade);
 		this.catalogLote.put(lote.getId(), lote);
 		return lote;
+	}
+
+	public Lote getLoteById(String idLote) {
+		return catalogLote.get(idLote);
 	}
 
 }
