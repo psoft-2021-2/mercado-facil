@@ -1,6 +1,7 @@
 package com.ufcg.psoft.mercadofacil;
 
 import com.ufcg.psoft.mercadofacil.controller.SystemController;
+import com.ufcg.psoft.mercadofacil.dto.ProdutoDTO;
 import com.ufcg.psoft.mercadofacil.exceptions.ProductNotFoundException;
 import com.ufcg.psoft.mercadofacil.model.Lote;
 import com.ufcg.psoft.mercadofacil.model.Produto;
@@ -13,7 +14,8 @@ public class MercadoFacilApplication {
 		
 		SystemController controller = new SystemController();
 		
-		String idProduto = controller.criaProduto("Leite", "X102", "Italac", 10.5, "Outro"); 
+		ProdutoDTO pDTO = new ProdutoDTO("Leite", "X102", "Italac", 10.5, "Outro");
+		String idProduto = controller.criaProduto(pDTO); 
 		String idLote = null;
 		
 		try {

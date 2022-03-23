@@ -1,5 +1,6 @@
 package com.ufcg.psoft.mercadofacil.controller;
 
+import com.ufcg.psoft.mercadofacil.dto.ProdutoDTO;
 import com.ufcg.psoft.mercadofacil.exceptions.ProductNotFoundException;
 import com.ufcg.psoft.mercadofacil.model.Lote;
 import com.ufcg.psoft.mercadofacil.model.Produto;
@@ -18,8 +19,8 @@ public class SystemController {
 		this.loteService = new LoteService(prodService);
 	}
 
-	public String criaProduto(String nome, String codigoBarra, String fabricante, Double preco, String categoria) {
-		return prodService.createProduto(nome, codigoBarra, fabricante, preco, categoria).getId();
+	public String criaProduto(ProdutoDTO produtoDTO) {
+		return prodService.createProduto(produtoDTO).getId();
 	}
 	
 	public String criaLote(String idProduto, int quantidade) throws ProductNotFoundException {
