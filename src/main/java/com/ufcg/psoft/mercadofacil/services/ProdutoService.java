@@ -3,10 +3,13 @@ package com.ufcg.psoft.mercadofacil.services;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.stereotype.Service;
+
 import com.ufcg.psoft.mercadofacil.dto.ProdutoDTO;
 import com.ufcg.psoft.mercadofacil.exceptions.ProductNotFoundException;
 import com.ufcg.psoft.mercadofacil.model.Produto;
 
+@Service
 public class ProdutoService {
 	
 	private Map<String, Produto> catalogProduto = new HashMap<String, Produto>();
@@ -29,16 +32,27 @@ public class ProdutoService {
 		return produto;
 	}
 	
-	private void checkProductNull(Produto produto) throws ProductNotFoundException { 
-		if (produto == null) {
-			throw new ProductNotFoundException(); 
-		}
-	}
-
 	public Produto createProduto(ProdutoDTO produtoDTO) {
 		Produto produto = new Produto(produtoDTO.getNome(), produtoDTO.getCodigoBarra(), produtoDTO.getFabricante(), produtoDTO.getPreco(), produtoDTO.getCategoria());
 		this.catalogProduto.put(produto.getId(), produto);
 		return produto;
 	}
 
+	public Produto getProdutoByCodigoBarra(String codigoBarra) throws ProductNotFoundException {
+	
+		Produto produto = catalogProduto.values().stream()
+				.filter(prod-> codigoBarra.equals(prod.getCodigoBarra()))
+				.findAny()
+				.orElse(null);
+		
+		checkProductNull(produto);
+		return produto;
+			
+	}
+
+	private void checkProductNull(Produto produto) throws ProductNotFoundException { 
+		if (produto == null) {
+			throw new ProductNotFoundException(); 
+		}
+	}
 }
