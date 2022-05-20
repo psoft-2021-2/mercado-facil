@@ -1,40 +1,47 @@
 package com.ufcg.psoft.mercadofacil.model;
-
+import java.util.Date;
 import java.util.UUID;
 
 public class Lote {
+	
+	private String id;
+	
+	private Produto produto;
+	
+	private int quantidade; 
+	
+	private Date dataFabricacao;
+	
+	private Date dataValidade; 
+	
+	public Lote(Produto produto, int quantidade) {
+		
+		this.id = UUID.randomUUID().toString();
+		this.produto = produto;
+		this.quantidade = quantidade;
+	}
+	
+	public String getId() {
+		return id;
+	}
 
-    private String id;
-    private Produto produto;
-    private int numeroDeItens;
+	public Produto getProduto() {
+		return produto;
+	}
 
-    public Lote(Produto produto, int numeroDeItens) {
-        this.id = UUID.randomUUID().toString();
-    	this.produto = produto;
-        this.numeroDeItens = numeroDeItens;
-    }
+	public int getQuantidade() {
+		return quantidade;
+	}
 
-    public String getId() {
-        return id;
-    }
+	public Date getDataFabricacao() {
+		return dataFabricacao;
+	}
 
-    public Produto getProduto() {
-        return produto;
-    }
+	public Date getDataValidade() {
+		return dataValidade;
+	}
 
-    public void setProduto(Produto produto) {
-        this.produto = produto;
-    }
-
-    public int getNumeroDeItens() {
-        return numeroDeItens;
-    }
-
-    public void setNumeroDeItens(int numeroDeItens) {
-        this.numeroDeItens = numeroDeItens;
-    }
-    
-    public String toString() {
-    	return "Lote ID:" + this.id + "; " + this.produto.toString() + "; Nº de items:" + this.numeroDeItens; 
-    }
+	public String toString() {
+		return "Lote ID: " + getId() + " - Produto: " + getProduto().getNome() + " - " + getQuantidade() + " itens";
+	}
 }
