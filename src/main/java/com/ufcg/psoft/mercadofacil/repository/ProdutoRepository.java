@@ -1,12 +1,40 @@
 package com.ufcg.psoft.mercadofacil.repository;
 
-import java.util.List;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import com.ufcg.psoft.mercadofacil.model.Produto;
 
-public interface ProdutoRepository extends JpaRepository<Produto, Long>{
+@Repository
+public class ProdutoRepository {
+	
+	private Map<String, Produto> produtos;
+	
+	public ProdutoRepository() {
+		this.produtos = new HashMap<String, Produto>();
+	}
 
-	List<Produto> findByCodigoBarra(String codigoBarra);
+	public Collection<Produto> getAll() {
+		return produtos.values();
+	}
+	
+	public Produto getProd(String id) {
+		return this.produtos.get(id);
+	}
+	
+	public void delProd(String id) {
+		this.produtos.remove(id);
+	}
+	
+	public void editProd(Produto prod) {
+		this.produtos.replace(prod.getId(), prod);
+	}
+	
+	public String addProduto(Produto prod) {
+		this.produtos.put(prod.getId(), prod);
+		return(prod.getId());
+	}
 }

@@ -1,55 +1,47 @@
 package com.ufcg.psoft.mercadofacil.model;
+import java.util.Date;
+import java.util.UUID;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-
-@Entity
 public class Lote {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 	
-	@OneToOne
-    private Produto produto;
-    private int numeroDeItens;
+	private String id;
+	
+	private Produto produto;
+	
+	private int quantidade; 
+	
+	private Date dataFabricacao;
+	
+	private Date dataValidade; 
+	
+	public Lote(Produto produto, int quantidade) {
+		
+		this.id = UUID.randomUUID().toString();
+		this.produto = produto;
+		this.quantidade = quantidade;
+	}
+	
+	public String getId() {
+		return id;
+	}
 
-    private Lote() { }
-    
-    public Lote(Produto produto, int numeroDeItens) {
-        this.produto = produto;
-        this.numeroDeItens = numeroDeItens;
-    }
+	public Produto getProduto() {
+		return produto;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public int getQuantidade() {
+		return quantidade;
+	}
 
-    public Produto getProduto() {
-        return produto;
-    }
+	public Date getDataFabricacao() {
+		return dataFabricacao;
+	}
 
-    public void setProduto(Produto produto) {
-        this.produto = produto;
-    }
+	public Date getDataValidade() {
+		return dataValidade;
+	}
 
-    public int getNumeroDeItens() {
-        return numeroDeItens;
-    }
-
-    public void setNumeroDeItens(int numeroDeItens) {
-        this.numeroDeItens = numeroDeItens;
-    }
-
-    @Override
-    public String toString() {
-        return "Lote{" +
-                "id=" + id +
-                ", produto=" + produto.getId() +
-                ", numeroDeItens=" + numeroDeItens + '\'' +
-                '}';
-    }
+	public String toString() {
+		return "Lote ID: " + getId() + " - Produto: " + getProduto().getNome() + " - " + getQuantidade() + " itens";
+	}
 }
